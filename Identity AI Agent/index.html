@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Route Optimizer</title>
+  <style>
+    body { font-family: Arial; margin: 50px; }
+    input { margin: 5px; padding: 8px; width: 200px; }
+    button { padding: 10px 20px; }
+    pre { background: #f4f4f4; padding: 15px; }
+  </style>
+</head>
+<body>
+
+  <h2>Route Optimizer</h2>
+
+  <label>Start Lat:</label>
+  <input id="startLat" value="28.6139"><br>
+
+  <label>Start Lng:</label>
+  <input id="startLng" value="77.2090"><br>
+
+  <label>End Lat:</label>
+  <input id="endLat" value="28.7041"><br>
+
+  <label>End Lng:</label>
+  <input id="endLng" value="77.1025"><br>
+
+  <button onclick="sendRequest()">Optimize Route</button>
+
+  <h3>Response:</h3>
+  <pre id="result"></pre>
+
+<script>
+function sendRequest() {
+  const data = {
+    startLat: parseFloat(document.getElementById("startLat").value),
+    startLng: parseFloat(document.getElementById("startLng").value),
+    endLat: parseFloat(document.getElementById("endLat").value),
+    endLng: parseFloat(document.getElementById("endLng").value)
+  };
+
+  fetch("http://localhost:8080/api/route/optimize", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(data)
+  })
+  .then(res => res.json())
+  .then(json => {
+    document.getElementById("result").textContent = JSON.stringify(json, null, 2);
+  })
+  .catch(err => {
+    document.getElementById("result").textContent = "Error: " + err;
+  });
+}
+</script>
+
+</body>
+</html>
