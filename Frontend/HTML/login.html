@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TrafficBuddy – Login</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../CSS/login.css">
+</head>
+<body>
+    <!-- Background Animation -->
+    <div class="bg-animation" id="bgAnimation"></div>
+
+    <!-- Auth Container -->
+    <div class="auth-container">
+        <!-- Logo Section -->
+        <div class="logo-section">
+            <div class="logo-icon">🚦</div>
+            <h1 class="app-title">TrafficBuddy</h1>
+            <p class="app-subtitle">Smart Route Navigation System</p>
+        </div>
+
+        <!-- Tab Switcher -->
+        <div class="tab-switcher">
+            <button class="tab-btn active" onclick="switchTab('login')">Login</button>
+            <button class="tab-btn" onclick="switchTab('signup')">Sign Up</button>
+        </div>
+
+        <!-- Login Form -->
+        <div class="form-container active" id="loginForm">
+            <form onsubmit="handleLogin(event)">
+                <div class="input-group">
+                    <label>User ID / Email</label>
+                    <div class="input-wrapper">
+                        <span class="input-icon">👤</span>
+                        <input type="text" class="input-field" id="loginUser" placeholder="Enter your user ID or email" required>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label>Password</label>
+                    <div class="input-wrapper">
+                        <span class="input-icon">🔒</span>
+                        <input type="password" class="input-field" id="loginPassword" placeholder="Enter your password" required>
+                    </div>
+                    <div class="error-message" id="loginError">Invalid credentials. Please try again.</div>
+                </div>
+
+                <button type="submit" class="btn-submit" id="loginBtn">
+                    <span id="loginBtnText">Login to Dashboard</span>
+                </button>
+
+                <div class="extra-links">
+                    <a href="#" onclick="alert('Password reset feature coming soon!'); return false;">Forgot Password?</a>
+                </div>
+            </form>
+        </div>
+
+        <!-- Signup Form -->
+        <div class="form-container" id="signupForm">
+            <form onsubmit="handleSignup(event)">
+                <div class="input-group">
+                    <label>Full Name</label>
+                    <div class="input-wrapper">
+                        <span class="input-icon">👤</span>
+                        <input type="text" class="input-field" id="signupName" placeholder="Enter your full name" required>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label>Email Address</label>
+                    <div class="input-wrapper">
+                        <span class="input-icon">📧</span>
+                        <input type="email" class="input-field" id="signupEmail" placeholder="Enter your email" required>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label>Password</label>
+                    <div class="input-wrapper">
+                        <span class="input-icon">🔒</span>
+                        <input type="password" class="input-field" id="signupPassword" placeholder="Create a password" required minlength="6">
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label>Confirm Password</label>
+                    <div class="input-wrapper">
+                        <span class="input-icon">🔐</span>
+                        <input type="password" class="input-field" id="signupConfirmPassword" placeholder="Confirm your password" required>
+                    </div>
+                    <div class="error-message" id="signupError">Passwords do not match.</div>
+                </div>
+
+                <button type="submit" class="btn-submit" id="signupBtn">
+                    <span id="signupBtnText">Create Account</span>
+                </button>
+
+                <div class="extra-links">
+                    <span style="color: rgba(255,255,255,0.7);">Already have an account? </span>
+                    <a href="#" onclick="switchTab('login'); return false;">Login here</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="../JS/login.js"></script>
+</body>
+</html>
