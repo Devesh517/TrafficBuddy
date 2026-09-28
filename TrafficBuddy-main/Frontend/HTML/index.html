@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TrafficBuddy Dashboard</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚦</text></svg>">
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../CSS/index.css">
+</head>
+<body>
+
+    <!-- Mobile-only sidebar toggle -->
+    <button class="menu-toggle" id="menuToggle" onclick="toggleSidebar()" title="Menu" aria-label="Toggle menu">☰</button>
+    <div class="sidebar-backdrop" id="sidebarBackdrop" onclick="toggleSidebar()"></div>
+
+    <aside class="sidebar" id="sidebar">
+        <div class="brand">
+            <div class="brand-mark">🚦</div>
+            <div class="brand-text">
+                TrafficBuddy
+                <span class="sub">Signed in as <span id="currentUserLabel">demo</span></span>
+            </div>
+            <div class="signal-dots" id="signalDots" title="Status">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+
+        <div class="route-fields">
+            <div class="input-group field-icon-wrap">
+                <label>Starting Point</label>
+                <span class="field-dot start"></span>
+                <input type="text" id="startName" placeholder="e.g., Aryan College, Ajmer">
+            </div>
+
+            <div class="input-group field-icon-wrap">
+                <label>Destination</label>
+                <span class="field-dot end"></span>
+                <input type="text" id="endName" placeholder="e.g., Bus Stand, Ajmer">
+            </div>
+        </div>
+
+        <button class="btn-primary" id="findRouteBtn" onclick="findRoute()">
+            <span id="findRouteBtnText">Find Best Route</span>
+        </button>
+
+        <div class="action-row">
+            <button class="btn-icon" onclick="toggleSettings()" title="Settings">⚙️ Settings</button>
+            <button class="btn-icon" onclick="clearMap()" title="Clear Map">🗑️ Clear</button>
+            <button class="btn-icon" onclick="logout()" title="Logout">🚪 Logout</button>
+        </div>
+
+        <div class="directions-list" id="directionsList">
+            <div class="empty-state">
+                <span class="icon">🗺️</span>
+                Enter a starting point and destination to see your route, live weather, and step-by-step directions.
+            </div>
+        </div>
+    </aside>
+
+    <div class="map-wrapper">
+        <div id="map"></div>
+        <!-- Custom Message Box for errors (replaces alert()) -->
+        <div id="messageBox"></div>
+
+        <button class="chat-btn" onclick="toggleChat()" title="Open assistant" aria-label="Open assistant">💬</button>
+
+        <div class="chat-window" id="chatWindow">
+            <div class="chat-header">
+                Traffic Assistant
+                <span class="close-x" onclick="toggleChat()">✕</span>
+            </div>
+            <div class="chat-body" id="chatBody">
+                <div class="msg bot">Hello! I can help you find traffic details or weather updates. Ask me anything!</div>
+            </div>
+            <div class="chat-footer">
+                <input type="text" class="chat-input" id="chatInput" placeholder="Type a message..." onkeypress="handleChatEnter(event)">
+                <button class="btn-icon" onclick="sendMessage()" title="Send" aria-label="Send message">➤</button>
+            </div>
+        </div>
+
+        <div class="settings-panel" id="settingsPanel">
+            <div class="settings-header">
+                <h3>Settings</h3>
+                <span class="close-btn" onclick="toggleSettings()">✕</span>
+            </div>
+
+            <div class="setting-group">
+                <div class="group-title">Display</div>
+                <div class="setting-item">
+                    <div class="setting-label">🌙 Dark Mode</div>
+                    <label class="switch">
+                        <input type="checkbox" id="darkModeToggle" onchange="toggleDarkMode()">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="setting-group">
+                <div class="group-title">Voice &amp; Navigation</div>
+                <div class="setting-item">
+                    <div class="setting-label">🔊 Voice Guidance</div>
+                    <label class="switch">
+                        <input type="checkbox" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="setting-group">
+                <div class="group-title">Route Preferences</div>
+                <div class="setting-item">
+                    <div class="setting-label">🚫 Avoid Tolls</div>
+                    <label class="switch">
+                        <input type="checkbox" id="avoidTolls">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="setting-item">
+                    <div class="setting-label">🛣️ Avoid Highways</div>
+                    <label class="switch">
+                        <input type="checkbox" id="avoidHighways">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="setting-group">
+                <div class="group-title">Notifications</div>
+                <div class="setting-item">
+                    <div class="setting-label">🚥 Traffic Alerts</div>
+                    <label class="switch">
+                        <input type="checkbox" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="setting-item">
+                    <div class="setting-label">🌦️ Weather Warnings</div>
+                    <label class="switch">
+                        <input type="checkbox" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="../JS/index.js"></script>
+</body>
+</html>
